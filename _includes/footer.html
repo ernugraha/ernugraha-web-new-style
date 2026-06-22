@@ -1,0 +1,43 @@
+<footer class="footer" role="contentinfo">
+  <div class="footer__inner container">
+
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="{{ '/' | relative_url }}" class="footer__logo">{{ site.title }}</a>
+        <p class="footer__tagline">{{ site.description }}</p>
+      </div>
+
+      <nav class="footer__nav" aria-label="Footer navigasi">
+        <div class="footer__nav-col">
+          <h4 class="footer__nav-heading">Jelajahi</h4>
+          <ul role="list">
+            <li><a href="{{ '/' | relative_url }}" class="footer__link">Beranda</a></li>
+            <li><a href="{{ '/posts/' | relative_url }}" class="footer__link">Artikel</a></li>
+            <li><a href="{{ '/about/' | relative_url }}" class="footer__link">Tentang</a></li>
+          </ul>
+        </div>
+        <div class="footer__nav-col">
+          <h4 class="footer__nav-heading">Lainnya</h4>
+          <ul role="list">
+            <li><a href="{{ '/contact/' | relative_url }}" class="footer__link">Kontak</a></li>
+            <li><a href="{{ '/feed.xml' | relative_url }}" class="footer__link">RSS Feed</a></li>
+            <li><a href="{{ '/sitemap.xml' | relative_url }}" class="footer__link">Sitemap</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="footer__bottom">
+      <p class="footer__copy">
+        Copyright © {{ 'now' | date: "%Y" }} {{ site.title }}. Dibuat dengan
+        <a href="https://jekyllrb.com" class="footer__link" target="_blank" rel="noopener">Jekyll</a>.
+      </p>
+      <div class="footer__bottom-actions">
+        <button class="footer__theme-btn" id="footer-theme-toggle" aria-label="Ganti tema">
+          <span id="footer-theme-label">Mode Gelap</span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</footer>

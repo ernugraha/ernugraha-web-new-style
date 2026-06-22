@@ -1,0 +1,87 @@
+---
+layout: default
+---
+
+{{ content }}
+
+<!-- Hero Section -->
+<section class="hero" id="hero">
+  <div class="hero__inner">
+    <p class="hero__eyebrow">Baru</p>
+    <h1 class="hero__title">{{ site.title }}</h1>
+    <p class="hero__subtitle">{{ site.description }}</p>
+    <div class="hero__cta">
+      <a href="/posts/" class="btn btn--primary">Selengkapnya</a>
+      <a href="/about/" class="btn btn--outline">Pelajari Lebih</a>
+    </div>
+  </div>
+  <div class="hero__visual">
+    <div class="hero__device-group">
+      <div class="hero__device hero__device--1"></div>
+      <div class="hero__device hero__device--2"></div>
+      <div class="hero__device hero__device--3"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Strip -->
+<section class="features-strip">
+  <div class="container">
+    <div class="features-strip__grid">
+      <div class="feature-card">
+        <div class="feature-card__icon">✦</div>
+        <h3 class="feature-card__title">Desain Elegan</h3>
+        <p class="feature-card__desc">Tampilan bersih dan modern yang menyesuaikan semua perangkat secara otomatis.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card__icon">◎</div>
+        <h3 class="feature-card__title">Dark Mode</h3>
+        <p class="feature-card__desc">Beralih antara mode terang dan gelap dengan satu klik yang mulus.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card__icon">⌕</div>
+        <h3 class="feature-card__title">Pencarian Cepat</h3>
+        <p class="feature-card__desc">Temukan konten apa pun secara instan dengan mesin pencari bawaan.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Latest Posts -->
+<section class="latest-posts section">
+  <div class="container">
+    <div class="section__header">
+      <h2 class="section__title">Artikel Terbaru</h2>
+      <a href="/posts/" class="section__link">Lihat semua →</a>
+    </div>
+    <div class="posts-grid">
+      {% for post in site.posts limit: 6 %}
+        {% unless post.search_exclude %}
+        <article class="post-card">
+          {% if post.image %}
+          <div class="post-card__image">
+            <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
+          </div>
+          {% else %}
+          <div class="post-card__image post-card__image--placeholder">
+            <span>{{ post.title | slice: 0 }}</span>
+          </div>
+          {% endif %}
+          <div class="post-card__body">
+            {% if post.categories.size > 0 %}
+            <span class="post-card__category">{{ post.categories | first }}</span>
+            {% endif %}
+            <h3 class="post-card__title">
+              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            </h3>
+            <p class="post-card__excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
+            <time class="post-card__date" datetime="{{ post.date | date_to_xmlschema }}">
+              {{ post.date | date: "%d %B %Y" }}
+            </time>
+          </div>
+        </article>
+        {% endunless %}
+      {% endfor %}
+    </div>
+  </div>
+</section>

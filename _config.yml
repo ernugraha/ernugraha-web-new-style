@@ -1,0 +1,51 @@
+title: "MySite"
+description: "Sambut generasi terbaru."
+url: ""
+baseurl: ""
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: /:year/:month/:day/:title/
+
+# Theme
+theme_default: light  # light or dark
+
+# Search settings
+search: true
+search_full_content: true
+
+# Plugins
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Collections
+collections:
+  pages:
+    output: true
+    permalink: /:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      search_exclude: false
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+      search_exclude: false
+
+# Exclude from Jekyll processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .git

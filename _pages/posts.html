@@ -1,0 +1,47 @@
+---
+layout: default
+title: "Semua Artikel"
+permalink: /posts/
+search_exclude: false
+---
+
+<section class="page-single">
+  <header class="page-single__header section section--narrow">
+    <h1 class="page-single__title">Semua Artikel</h1>
+    <p class="page-single__description">{{ site.posts | size }} artikel tersedia.</p>
+  </header>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="posts-grid">
+      {% for post in site.posts %}
+        {% unless post.search_exclude %}
+        <article class="post-card">
+          {% if post.image %}
+          <div class="post-card__image">
+            <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
+          </div>
+          {% else %}
+          <div class="post-card__image post-card__image--placeholder">
+            <span>{{ post.title | slice: 0 }}</span>
+          </div>
+          {% endif %}
+          <div class="post-card__body">
+            {% if post.categories.size > 0 %}
+            <span class="post-card__category">{{ post.categories | first }}</span>
+            {% endif %}
+            <h2 class="post-card__title">
+              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            </h2>
+            <p class="post-card__excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
+            <time class="post-card__date" datetime="{{ post.date | date_to_xmlschema }}">
+              {{ post.date | date: "%d %B %Y" }}
+            </time>
+          </div>
+        </article>
+        {% endunless %}
+      {% endfor %}
+    </div>
+  </div>
+</section>

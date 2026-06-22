@@ -1,0 +1,69 @@
+<nav class="navbar" id="navbar" role="navigation" aria-label="Navigasi utama">
+  <div class="navbar__inner">
+
+    <!-- Logo -->
+    <a href="{{ '/' | relative_url }}" class="navbar__logo" aria-label="{{ site.title }} Home">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M11 2C6.03 2 2 6.03 2 11s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16.2c-3.97 0-7.2-3.23-7.2-7.2S7.03 3.8 11 3.8 18.2 7.03 18.2 11 14.97 18.2 11 18.2zm-.9-11.7h1.8v5.4h-1.8V6.5zm0 6.3h1.8v1.8h-1.8v-1.8z" fill="currentColor"/>
+      </svg>
+      <span class="navbar__logo-text">{{ site.title }}</span>
+    </a>
+
+    <!-- Desktop Nav Links -->
+    <ul class="navbar__links" role="list">
+      <li><a href="{{ '/' | relative_url }}" class="navbar__link {% if page.url == '/' %}navbar__link--active{% endif %}">Beranda</a></li>
+      <li><a href="{{ '/posts/' | relative_url }}" class="navbar__link {% if page.url contains '/posts' %}navbar__link--active{% endif %}">Artikel</a></li>
+      <li><a href="{{ '/about/' | relative_url }}" class="navbar__link {% if page.url contains '/about' %}navbar__link--active{% endif %}">Tentang</a></li>
+      <li><a href="{{ '/contact/' | relative_url }}" class="navbar__link {% if page.url contains '/contact' %}navbar__link--active{% endif %}">Kontak</a></li>
+    </ul>
+
+    <!-- Right Actions -->
+    <div class="navbar__actions">
+
+      <!-- Search Button -->
+      {% if site.search %}
+      <button class="navbar__action-btn" id="search-trigger" aria-label="Buka pencarian" aria-expanded="false" aria-controls="search-modal">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.35-4.35"/>
+        </svg>
+      </button>
+      {% endif %}
+
+      <!-- Theme Toggle -->
+      <button class="navbar__action-btn navbar__theme-toggle" id="theme-toggle" aria-label="Ganti tema" title="Ganti tema terang/gelap">
+        <span class="theme-icon theme-icon--light" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+          </svg>
+        </span>
+        <span class="theme-icon theme-icon--dark" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+          </svg>
+        </span>
+      </button>
+
+      <!-- Mobile Menu Toggle -->
+      <button class="navbar__burger" id="navbar-burger" aria-label="Buka menu" aria-expanded="false" aria-controls="navbar-mobile">
+        <span class="navbar__burger-bar"></span>
+        <span class="navbar__burger-bar"></span>
+        <span class="navbar__burger-bar"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="navbar__mobile" id="navbar-mobile" aria-hidden="true">
+    <ul class="navbar__mobile-links" role="list">
+      <li><a href="{{ '/' | relative_url }}" class="navbar__mobile-link">Beranda</a></li>
+      <li><a href="{{ '/posts/' | relative_url }}" class="navbar__mobile-link">Artikel</a></li>
+      <li><a href="{{ '/about/' | relative_url }}" class="navbar__mobile-link">Tentang</a></li>
+      <li><a href="{{ '/contact/' | relative_url }}" class="navbar__mobile-link">Kontak</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Spacer so content doesn't hide under fixed navbar -->
+<div class="navbar-spacer" aria-hidden="true"></div>

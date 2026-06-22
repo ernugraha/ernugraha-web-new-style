@@ -1,0 +1,262 @@
+// ─── Navbar ──────────────────────────────────────────────────────────────────
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: $navbar-height;
+  background-color: var(--navbar-bg-top);
+  color: var(--navbar-text);
+
+  // Blur + border — controlled by JS via .is-scrolled
+  backdrop-filter: blur(0px) saturate(1);
+  -webkit-backdrop-filter: blur(0px) saturate(1);
+  border-bottom: 1px solid transparent;
+
+  // Smooth transitions for all scroll-based changes
+  transition:
+    background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    backdrop-filter  0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    -webkit-backdrop-filter 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color     0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow       0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  // ─── Scrolled State ─────────────────────────────────────────────────────
+  &.is-scrolled {
+    background-color: var(--navbar-bg-scroll);
+    backdrop-filter: blur(20px) saturate(1.8);
+    -webkit-backdrop-filter: blur(20px) saturate(1.8);
+    border-bottom-color: var(--navbar-border-scroll);
+    box-shadow: 0 1px 0 var(--navbar-border-scroll);
+  }
+
+  // ─── Inner layout ───────────────────────────────────────────────────────
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    max-width: $container-max;
+    margin: 0 auto;
+    padding: 0 max(1.5rem, env(safe-area-inset-left));
+    gap: 2rem;
+  }
+
+  // ─── Logo ───────────────────────────────────────────────────────────────
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-text);
+    text-decoration: none;
+    font-size: 1.0625rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    flex-shrink: 0;
+    transition: opacity $transition-fast;
+
+    svg { display: block; flex-shrink: 0; }
+    &:hover { opacity: 0.75; color: var(--color-text); }
+  }
+
+  &__logo-text {
+    @media (max-width: 480px) { display: none; }
+  }
+
+  // ─── Desktop Links ──────────────────────────────────────────────────────
+  &__links {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex: 1;
+    justify-content: center;
+
+    @media (max-width: 768px) { display: none; }
+  }
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.75rem;
+    border-radius: 980px;
+    font-size: 0.875rem;
+    font-weight: 450;
+    color: var(--color-text-2);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    transition: background-color $transition-fast, color $transition-fast;
+
+    &:hover {
+      background-color: rgba(0,0,0,0.05);
+      color: var(--color-text);
+    }
+
+    &--active {
+      color: var(--color-accent);
+      font-weight: 500;
+    }
+
+    [data-theme="dark"] & {
+      &:hover { background-color: rgba(255,255,255,0.07); }
+    }
+  }
+
+  // ─── Actions ────────────────────────────────────────────────────────────
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  &__action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    color: var(--color-text-2);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: background-color $transition-fast, color $transition-fast,
+                transform $transition-spring;
+
+    &:hover {
+      background-color: rgba(0,0,0,0.06);
+      color: var(--color-text);
+    }
+    &:active { transform: scale(0.9); }
+
+    [data-theme="dark"] & {
+      &:hover { background-color: rgba(255,255,255,0.08); }
+    }
+  }
+
+  // ─── Theme Toggle Icons ─────────────────────────────────────────────────
+  &__theme-toggle {
+    position: relative;
+    overflow: hidden;
+  }
+}
+
+// Theme icon switcher
+.theme-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+
+  &--light {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+    [data-theme="dark"] & {
+      opacity: 0;
+      transform: rotate(-90deg) scale(0.5);
+    }
+  }
+
+  &--dark {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.5);
+    [data-theme="dark"] & {
+      opacity: 1;
+      transform: rotate(0) scale(1);
+    }
+  }
+}
+
+// ─── Hamburger / Mobile ──────────────────────────────────────────────────────
+.navbar__burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 34px;
+  height: 34px;
+  border-radius: $radius-sm;
+  padding: 6px;
+  cursor: pointer;
+  transition: background-color $transition-fast;
+
+  @media (max-width: 768px) { display: flex; }
+
+  &:hover { background-color: rgba(0,0,0,0.05); }
+
+  &.is-active {
+    .navbar__burger-bar:nth-child(1) {
+      transform: translateY(6px) rotate(45deg);
+    }
+    .navbar__burger-bar:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    .navbar__burger-bar:nth-child(3) {
+      transform: translateY(-6px) rotate(-45deg);
+    }
+  }
+}
+
+.navbar__burger-bar {
+  display: block;
+  width: 100%;
+  height: 1.5px;
+  background: var(--color-text);
+  border-radius: 1px;
+  transform-origin: center;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.2s ease;
+}
+
+// ─── Mobile Menu ─────────────────────────────────────────────────────────────
+.navbar__mobile {
+  position: absolute;
+  top: $navbar-height;
+  left: 0;
+  right: 0;
+  background: var(--color-bg-alt);
+  border-bottom: 1px solid var(--color-border);
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.25s ease;
+
+  &.is-open {
+    max-height: 300px;
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.navbar__mobile-links {
+  padding: 0.5rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.navbar__mobile-link {
+  display: block;
+  padding: 0.625rem 0.75rem;
+  border-radius: $radius-sm;
+  font-size: 0.9375rem;
+  font-weight: 450;
+  color: var(--color-text-2);
+  transition: background-color $transition-fast, color $transition-fast;
+
+  &:hover {
+    background: rgba(0,0,0,0.04);
+    color: var(--color-text);
+  }
+}
+
+// ─── Spacer ───────────────────────────────────────────────────────────────────
+.navbar-spacer {
+  height: $navbar-height;
+}

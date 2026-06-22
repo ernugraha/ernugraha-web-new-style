@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{{ page.description | default: site.description }}">
+  <title>{% if page.title %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+
+  {% seo %}
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+</head>
+<body>
+
+  {% include navbar.html %}
+
+  <main id="main-content">
+    {{ content }}
+  </main>
+
+  {% include footer.html %}
+
+  <!-- Search Modal -->
+  {% include search-modal.html %}
+
+  <!-- Theme & Search JS -->
+  <script src="{{ '/assets/js/theme.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/navbar.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
+
+  <!-- Search Index -->
+  {% if site.search %}
+  <script>
+    window.searchIndex = [
+      {% assign searchable_pages = site.posts | concat: site.pages %}
+      {% for item in searchable_pages %}
+        {% unless item.search_exclude == true %}
+        {
+          "title": {{ item.title | jsonify }},
+          "url": {{ item.url | relative_url | jsonify }},
+          "date": {{ item.date | date: "%d %B %Y" | jsonify }},
+          "excerpt": {{ item.excerpt | strip_html | truncate: 200 | jsonify }},
+          "content": {{ item.content | strip_html | truncate: 500 | jsonify }},
+          "categories": {{ item.categories | join: ", " | jsonify }},
+          "tags": {{ item.tags | join: ", " | jsonify }}
+        }{% unless forloop.last %},{% endunless %}
+        {% endunless %}
+      {% endfor %}
+    ].filter(Boolean);
+  </script>
+  {% endif %}
+
+</body>
+</html>

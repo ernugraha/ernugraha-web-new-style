@@ -1,0 +1,82 @@
+---
+layout: default
+---
+
+<article class="post-single" itemscope itemtype="https://schema.org/BlogPosting">
+
+  <header class="post-single__header section section--narrow">
+    {% if page.categories.size > 0 %}
+    <div class="post-single__meta-top">
+      {% for cat in page.categories %}
+      <a href="/categories/{{ cat | slugify }}" class="post-single__category">{{ cat }}</a>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <h1 class="post-single__title" itemprop="headline">{{ page.title }}</h1>
+
+    {% if page.description %}
+    <p class="post-single__description">{{ page.description }}</p>
+    {% endif %}
+
+    <div class="post-single__meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+        {{ page.date | date: "%d %B %Y" }}
+      </time>
+      {% if page.author %}
+      <span class="post-single__meta-sep">·</span>
+      <span itemprop="author">{{ page.author }}</span>
+      {% endif %}
+      {% if page.read_time %}
+      <span class="post-single__meta-sep">·</span>
+      <span>{{ page.read_time }} menit baca</span>
+      {% endif %}
+    </div>
+
+    {% if page.image %}
+    <div class="post-single__cover">
+      <img src="{{ page.image | relative_url }}" alt="{{ page.title }}" loading="lazy" itemprop="image">
+    </div>
+    {% endif %}
+  </header>
+
+  <div class="post-single__body prose section section--narrow" itemprop="articleBody">
+    {{ content }}
+  </div>
+
+  {% if page.tags.size > 0 %}
+  <footer class="post-single__footer section section--narrow">
+    <div class="post-single__tags">
+      {% for tag in page.tags %}
+      <a href="/tags/{{ tag | slugify }}" class="tag">#{{ tag }}</a>
+      {% endfor %}
+    </div>
+  </footer>
+  {% endif %}
+
+  <!-- Related Posts -->
+  {% assign related = site.posts | where_exp: "p", "p.url != page.url" | sample: 3 %}
+  {% if related.size > 0 %}
+  <section class="related-posts section">
+    <div class="container">
+      <h2 class="section__title">Artikel Terkait</h2>
+      <div class="posts-grid posts-grid--3">
+        {% for post in related %}
+        <article class="post-card post-card--small">
+          <div class="post-card__body">
+            {% if post.categories.size > 0 %}
+            <span class="post-card__category">{{ post.categories | first }}</span>
+            {% endif %}
+            <h3 class="post-card__title">
+              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            </h3>
+            <time class="post-card__date">{{ post.date | date: "%d %B %Y" }}</time>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+</article>

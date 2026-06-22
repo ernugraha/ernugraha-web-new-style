@@ -1,0 +1,16 @@
+---
+layout: default
+---
+
+<article class="page-single">
+  <header class="page-single__header section section--narrow">
+    <h1 class="page-single__title">{{ page.title }}</h1>
+    {% if page.description %}
+    <p class="page-single__description">{{ page.description }}</p>
+    {% endif %}
+  </header>
+
+  <div class="page-single__body prose section section--narrow">
+    {{ content }}
+  </div>
+</article>

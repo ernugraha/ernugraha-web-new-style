@@ -1,0 +1,89 @@
+// ─── Design Tokens ───────────────────────────────────────────────────────────
+
+// Light Theme
+:root,
+[data-theme="light"] {
+  // Colors
+  --color-bg:          #f5f5f7;
+  --color-bg-alt:      #ffffff;
+  --color-bg-card:     #ffffff;
+  --color-text:        #1d1d1f;
+  --color-text-2:      #424245;
+  --color-text-3:      #6e6e73;
+  --color-text-inv:    #ffffff;
+  --color-accent:      #0071e3;
+  --color-accent-dark: #0077ed;
+  --color-accent-rgb:  0, 113, 227;
+  --color-border:      rgba(0,0,0,0.08);
+  --color-border-2:    rgba(0,0,0,0.12);
+
+  // Navbar
+  --navbar-bg-top:     transparent;
+  --navbar-bg-scroll:  rgba(255,255,255,0.72);
+  --navbar-border-scroll: rgba(0,0,0,0.08);
+  --navbar-text:       #1d1d1f;
+
+  // Shadow
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:  0 4px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+  --shadow-lg:  0 12px 40px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.06);
+  --shadow-xl:  0 24px 64px rgba(0,0,0,0.14), 0 8px 24px rgba(0,0,0,0.08);
+
+  // Search
+  --search-bg:        rgba(255,255,255,0.98);
+  --search-backdrop:  rgba(0,0,0,0.4);
+  --search-input-bg:  #f5f5f7;
+  --search-result-hover: #f5f5f7;
+}
+
+// Dark Theme
+[data-theme="dark"] {
+  --color-bg:          #000000;
+  --color-bg-alt:      #1c1c1e;
+  --color-bg-card:     #1c1c1e;
+  --color-text:        #f5f5f7;
+  --color-text-2:      #ebebf0cc;
+  --color-text-3:      #ebebf099;
+  --color-text-inv:    #000000;
+  --color-accent:      #2997ff;
+  --color-accent-dark: #409cff;
+  --color-accent-rgb:  41, 151, 255;
+  --color-border:      rgba(255,255,255,0.08);
+  --color-border-2:    rgba(255,255,255,0.12);
+
+  --navbar-bg-top:     transparent;
+  --navbar-bg-scroll:  rgba(0,0,0,0.72);
+  --navbar-border-scroll: rgba(255,255,255,0.08);
+  --navbar-text:       #f5f5f7;
+
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md:  0 4px 16px rgba(0,0,0,0.4);
+  --shadow-lg:  0 12px 40px rgba(0,0,0,0.5);
+  --shadow-xl:  0 24px 64px rgba(0,0,0,0.6);
+
+  --search-bg:        rgba(28,28,30,0.98);
+  --search-backdrop:  rgba(0,0,0,0.6);
+  --search-input-bg:  #2c2c2e;
+  --search-result-hover: #2c2c2e;
+}
+
+// ─── Spacing & Layout ─────────────────────────────────────────────────────────
+$navbar-height:     52px;
+$container-max:     1200px;
+$container-narrow:  720px;
+$gap:               1.5rem;
+$radius-sm:         8px;
+$radius-md:         14px;
+$radius-lg:         20px;
+$radius-xl:         28px;
+
+// ─── Typography ──────────────────────────────────────────────────────────────
+$font-system: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+              "Helvetica Neue", Arial, sans-serif;
+$font-mono:   "SF Mono", "Fira Code", "Cascadia Code", Consolas, monospace;
+
+// ─── Transitions ─────────────────────────────────────────────────────────────
+$transition-fast:   0.15s ease;
+$transition-base:   0.25s ease;
+$transition-slow:   0.4s ease;
+$transition-spring: 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
