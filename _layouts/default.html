@@ -8,11 +8,16 @@
 
   {% seo %}
 
-  <!-- Main CSS -->
-  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  <!-- Prevent theme flash: apply saved theme before render -->
+  <script>
+    (function(){
+      var t = localStorage.getItem('site-theme');
+      var d = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', t || d);
+    })();
+  </script>
 
-  <!-- Preconnect for performance -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
 </head>
 <body>
 
@@ -24,33 +29,30 @@
 
   {% include footer.html %}
 
-  <!-- Search Modal -->
   {% include search-modal.html %}
 
-  <!-- Theme & Search JS -->
   <script src="{{ '/assets/js/theme.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/navbar.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
 
-  <!-- Search Index -->
   {% if site.search %}
   <script>
     window.searchIndex = [
-      {% assign searchable_pages = site.posts | concat: site.pages %}
-      {% for item in searchable_pages %}
-        {% unless item.search_exclude == true %}
-        {
-          "title": {{ item.title | jsonify }},
-          "url": {{ item.url | relative_url | jsonify }},
-          "date": {{ item.date | date: "%d %B %Y" | jsonify }},
-          "excerpt": {{ item.excerpt | strip_html | truncate: 200 | jsonify }},
-          "content": {{ item.content | strip_html | truncate: 500 | jsonify }},
-          "categories": {{ item.categories | join: ", " | jsonify }},
-          "tags": {{ item.tags | join: ", " | jsonify }}
-        }{% unless forloop.last %},{% endunless %}
-        {% endunless %}
+      {% assign searchable = "" | split: "" %}
+      {% for post in site.posts %}{% unless post.search_exclude %}{% assign searchable = searchable | push: post %}{% endunless %}{% endfor %}
+      {% for p in site.pages %}{% unless p.search_exclude %}{% assign searchable = searchable | push: p %}{% endunless %}{% endfor %}
+      {% for item in searchable %}
+      {% unless forloop.first %},{% endunless %}
+      {
+        "title": {{ item.title | jsonify }},
+        "url": {{ item.url | relative_url | jsonify }},
+        "date": {{ item.date | date: "%d %B %Y" | jsonify }},
+        "excerpt": {{ item.excerpt | strip_html | truncatewords: 40 | jsonify }},
+        "content": {{ item.content | strip_html | truncatewords: 80 | jsonify }},
+        "categories": {{ item.categories | join: ", " | jsonify }}
+      }
       {% endfor %}
-    ].filter(Boolean);
+    ];
   </script>
   {% endif %}
 

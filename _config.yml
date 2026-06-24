@@ -8,18 +8,14 @@ markdown: kramdown
 highlighter: rouge
 permalink: /:year/:month/:day/:title/
 
-# Theme
-theme_default: light  # light or dark
-
 # Search settings
 search: true
-search_full_content: true
 
-# Plugins
+# Plugins — only GitHub Pages supported ones
 plugins:
-  - jekyll-sitemap
   - jekyll-feed
   - jekyll-seo-tag
+  - jekyll-sitemap
 
 # Collections
 collections:
@@ -42,10 +38,11 @@ defaults:
       layout: "page"
       search_exclude: false
 
-# Exclude from Jekyll processing
+# Exclude
 exclude:
   - Gemfile
   - Gemfile.lock
   - node_modules
   - vendor
   - .git
+  - README.md
